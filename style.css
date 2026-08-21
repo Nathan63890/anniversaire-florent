@@ -1,0 +1,605 @@
+/* =====================================================
+   ANNIVERSAIRE FLORENT
+   CSS COMPLET
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    -webkit-touch-callout: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: white;
+
+    -webkit-tap-highlight-color: transparent;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #fff4b8 0%,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ff8ec7,
+            #8ec5ff
+        );
+}
+
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
+.page {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    min-height: 100dvh;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+.message {
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+
+    text-align: center;
+
+    padding-top:
+        clamp(
+            70px,
+            15vh,
+            160px
+        );
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    text-shadow:
+        0 4px 10px
+        rgba(0, 0, 0, 0.25);
+}
+
+h1 {
+    font-size:
+        clamp(
+            32px,
+            7vw,
+            80px
+        );
+
+    line-height: 1.1;
+
+    font-weight: 800;
+}
+
+.subtitle {
+    margin-top: 25px;
+
+    font-size:
+        clamp(
+            20px,
+            4vw,
+            40px
+        );
+
+    line-height: 1.4;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   CONTENEURS
+   ===================================================== */
+
+#balloons {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 5;
+}
+
+#confetti {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 20;
+}
+
+
+/* =====================================================
+   BALLONS
+   ===================================================== */
+
+.balloon {
+    position: absolute;
+
+    bottom: -120px;
+
+    width: 55px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+
+    animation-name: flyBalloon;
+
+    animation-timing-function: linear;
+
+    animation-fill-mode: forwards;
+
+    filter:
+        drop-shadow(
+            0 5px 5px
+            rgba(0, 0, 0, 0.2)
+        );
+}
+
+
+/* Ficelle */
+
+.balloon::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 68px;
+
+    width: 1px;
+    height: 100px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.7
+        );
+}
+
+
+/* =====================================================
+   VOL DU BALLON
+   ===================================================== */
+
+@keyframes flyBalloon {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(-5deg);
+
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    50% {
+        transform:
+            translateY(-55vh)
+            rotate(6deg);
+    }
+
+    100% {
+        transform:
+            translateY(-120vh)
+            rotate(-8deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   CONFETTIS AUTOMATIQUES
+   ===================================================== */
+
+.confetti-piece {
+    position: absolute;
+
+    top: -20px;
+
+    width: 10px;
+    height: 16px;
+
+    border-radius: 2px;
+
+    pointer-events: none;
+
+    animation-name: confettiFall;
+
+    animation-timing-function: linear;
+
+    animation-fill-mode: forwards;
+}
+
+@keyframes confettiFall {
+
+    0% {
+        transform:
+            translateY(-20px)
+            rotate(0deg);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   PARTICULES DE L'EXPLOSION
+   ===================================================== */
+
+.balloon-particle {
+    position: fixed;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 15px white;
+
+    animation-name: balloonExplosion;
+
+    animation-duration: 0.8s;
+
+    animation-timing-function: ease-out;
+
+    animation-fill-mode: forwards;
+}
+
+
+/* =====================================================
+   ANIMATION DES PARTICULES
+   ===================================================== */
+
+@keyframes balloonExplosion {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            translate(0, 0)
+            scale(1);
+
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   FLASH
+   ===================================================== */
+
+.balloon-flash {
+    position: fixed;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    box-shadow:
+        0 0 15px white,
+        0 0 30px white,
+        0 0 50px white;
+
+    animation-name: balloonFlash;
+
+    animation-duration: 0.35s;
+
+    animation-timing-function: ease-out;
+
+    animation-fill-mode: forwards;
+}
+
+
+/* =====================================================
+   ANIMATION DU FLASH
+   ===================================================== */
+
+@keyframes balloonFlash {
+
+    0% {
+        transform:
+            translate(-50%, -50%)
+            scale(0.5);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(-50%, -50%)
+            scale(5);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+    position: absolute;
+
+    left: 0;
+
+    bottom:
+        max(
+            15px,
+            env(safe-area-inset-bottom)
+        );
+
+    width: 100%;
+
+    z-index: 30;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 25px;
+
+    padding: 10px 20px;
+
+    font-size:
+        clamp(
+            12px,
+            2vw,
+            16px
+        );
+
+    text-align: center;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.9
+        );
+
+    text-shadow:
+        0 2px 5px
+        rgba(
+            0,
+            0,
+            0,
+            0.25
+        );
+}
+
+
+/* =====================================================
+   IPHONE / ANDROID
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .message {
+        padding-top: 100px;
+    }
+
+    h1 {
+        font-size:
+            clamp(
+                30px,
+                9vw,
+                45px
+            );
+    }
+
+    .subtitle {
+        font-size:
+            clamp(
+                19px,
+                5.5vw,
+                28px
+            );
+
+        margin-top: 18px;
+    }
+
+    footer {
+        flex-direction: column;
+
+        gap: 4px;
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .balloon {
+        width: 42px;
+        height: 55px;
+    }
+
+    .balloon::after {
+        top: 53px;
+    }
+}
+
+
+/* =====================================================
+   PETITS ÉCRANS EN HAUTEUR
+   ===================================================== */
+
+@media (max-height: 650px) {
+
+    .message {
+        padding-top: 55px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        margin-top: 12px;
+    }
+}
+
+
+/* =====================================================
+   TABLETTES
+   ===================================================== */
+
+@media (
+    min-width: 601px
+)
+and (
+    max-width: 1200px
+) {
+
+    h1 {
+        font-size:
+            clamp(
+                45px,
+                7vw,
+                65px
+            );
+    }
+
+    .subtitle {
+        font-size:
+            clamp(
+                25px,
+                4vw,
+                35px
+            );
+    }
+}
+
+
+/* =====================================================
+   MODE PAYSAGE SUR TÉLÉPHONE
+   ===================================================== */
+
+@media (
+    max-width: 900px
+)
+and (
+    orientation: landscape
+) {
+
+    .message {
+        padding-top: 25px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        margin-top: 8px;
+    }
+
+    footer {
+        font-size: 11px;
+        padding-bottom: 5px;
+    }
+}
